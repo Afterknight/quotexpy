@@ -1,3 +1,4 @@
+
 """Module for Quotex http refresh ssid resource."""
 
 from quotexpy.http.navigator import Navigator
