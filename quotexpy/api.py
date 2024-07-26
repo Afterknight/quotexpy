@@ -14,6 +14,7 @@ import threading
 
 from quotexpy.http.login import Login
 from quotexpy.http.logout import Logout
+from quotexpy.http.refresh import Refresh
 from quotexpy.ws.channels.ssid import Ssid
 from quotexpy.ws.channels.trade import Trade
 from quotexpy.exceptions import QuotexTimeout
@@ -89,6 +90,7 @@ class QuotexAPI(object):
         self.websocket_thread = None
         self.websocket_client = None
         self.SSID = kwargs.get("ssid", None)
+        self.time_period = kwargs.get("time_period", 60)
         self.current_asset = kwargs.get("current_asset", None)
         self.signal_data = nested_dict(2, dict)
 
@@ -107,6 +109,14 @@ class QuotexAPI(object):
         :returns: The instance of :class:`WebSocket <websocket.WebSocket>`.
         """
         return self.websocket_client.wss
+
+    @property
+    def refresh(self):
+        """Property for Quotex http refresh ssid resource.
+        :returns: The instance of :class:`Refresh
+            <quotexpy.http.refresh.Refresh>`.
+        """
+        return Refresh(self)
 
     @property
     def logout(self):
@@ -192,7 +202,6 @@ class QuotexAPI(object):
         payload = {"asset": asset, "period": period}
         data = f'42["instruments/update", {json.dumps(payload)}]'
         self.send_websocket_request(data)
-        payload = {"asset": asset, "period": period}
         data = f'42["depth/follow", "{asset}"]'
         self.send_websocket_request(data)
         payload = {"asset": asset, "version": "1.0.0"}
@@ -227,7 +236,7 @@ class QuotexAPI(object):
         self.websocket.send('42["chart_notification/get"]')
 
         if self.current_asset:
-            payload = json.dumps({"asset": self.current_asset, "period": 60})
+            payload = json.dumps({"asset": self.current_asset, "period": self.time_period})
             self.websocket.send(f'42["instruments/update",{payload}]')
             self.websocket.send(f'42["depth/follow","{self.current_asset}"]')
 
