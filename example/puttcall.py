@@ -4,10 +4,9 @@ import random
 import asyncio
 import datetime
 from termcolor import colored
-import asyncio
 
 from quotexpy import Quotex
-from quotexpy.utils import asset_parse
+from quotexpy.utils import asset_parse, asrun
 from quotexpy.utils.account_type import AccountType
 from quotexpy.utils.candles_period import CandlesPeriod
 from quotexpy.utils.operation_type import OperationType
