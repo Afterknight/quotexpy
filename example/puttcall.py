@@ -21,8 +21,8 @@ def on_pin_code() -> str:
 
 
 client = Quotex(
-    email="",
-    password="",
+    email="shanimam97@gmail.com",
+    password="Sufi@2020",
     headless=True,
     on_pin_code=on_pin_code,
 )
