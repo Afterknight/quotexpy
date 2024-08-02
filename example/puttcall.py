@@ -6,7 +6,6 @@ import datetime
 from termcolor import colored
 
 from quotexpy import Quotex
-from quotexpy import utils
 from quotexpy.utils import asset_parse, asrun
 from quotexpy.utils.account_type import AccountType
 from quotexpy.utils.candles_period import CandlesPeriod
