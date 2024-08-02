@@ -1,4 +1,3 @@
-
 import sys
 import time
 import random
@@ -22,8 +21,8 @@ def on_pin_code() -> str:
 
 
 client = Quotex(
-    email="shanimam97@gmail.com",
-    password="Sufi@2020",
+    email="",
+    password="",
     headless=True,
     on_pin_code=on_pin_code,
 )
